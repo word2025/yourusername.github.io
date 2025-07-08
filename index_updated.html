@@ -2,54 +2,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Focus Flow Planners</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0; padding: 0;
-            background-color: #f8f9fa;
-            color: #333;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 40px 20px;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #5b2e91;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 12px;
-        }
-        .gumroad-button {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 14px 28px;
-            background-color: #ff90e8;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
-        }
-        .gumroad-button:hover {
-            background-color: #e870d4;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADHD Planner - Digital Download</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+    header {
+      background: #fff; padding: 20px; display: flex;
+      justify-content: space-between; align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo { font-size: 24px; font-weight: bold; }
+    nav a { margin: 0 10px; text-decoration: none; color: #333; }
+
+    main { padding: 40px 20px; max-width: 1100px; margin: auto; background: #fff; border-radius: 12px; }
+
+    .product { display: flex; flex-wrap: wrap; gap: 40px; }
+    .product img { width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+    .details { flex: 1; }
+    h1 { font-size: 30px; margin-bottom: 16px; }
+    .price { font-size: 24px; color: #e91e63; }
+    .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 8px; }
+
+    .desc { margin: 20px 0; line-height: 1.6; font-size: 16px; }
+    .btn-buy {
+      background: #000; color: #fff;
+      padding: 14px 28px; border: none;
+      border-radius: 8px; cursor: pointer;
+      font-size: 16px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff; padding: 30px; border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 999;
+      width: 90%; max-width: 400px;
+    }
+    .popup input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
+    .popup button { width: 100%; background: #28a745; color: #fff; padding: 12px; border: none; border-radius: 6px; cursor: pointer; }
+
+    .overlay {
+      display: none;
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+    }
+
+    @media(max-width: 768px) {
+      .product { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Focus Flow Planners</h1>
-        <img src="https://i.ibb.co/nNMnZ1Q2/9ad00c39-c1c0-41eb-a609-a21d7b83aaf3.png" alt="Focus Flow Preview">
-        <br>
-        <a href="https://your-gumroad-link.com" class="gumroad-button" target="_blank">Buy on Gumroad</a>
+
+  <header>
+    <div class="logo">🧠 FocusFlow</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="product">
+      <img src="https://via.placeholder.com/450x600?text=ADHD+Planner+Cover" alt="ADHD Planner PDF Cover">
+
+      <div class="details">
+        <h1>ADHD Daily Planner (Digital PDF)</h1>
+        <p class="price">$12.00 <span class="old-price">$19.99</span></p>
+        <p class="desc">
+          This printable ADHD Planner helps you stay focused, reduce overwhelm, and structure your day with clarity.
+          It includes:
+          <ul>
+            <li>✔️ Daily focus sheets</li>
+            <li>✔️ Weekly goal planning</li>
+            <li>✔️ Self-care reminders</li>
+            <li>✔️ Minimalist, printable design (PDF)</li>
+          </ul>
+        </p>
+        <button class="btn-buy" onclick="openCheckout()">Buy & Download</button>
+      </div>
     </div>
+  </main>
+
+  <!-- Checkout Popup -->
+  <div class="overlay" id="overlay" onclick="closeCheckout()"></div>
+
+  <div class="popup" id="checkout-popup">
+    <h2>Complete Your Purchase</h2>
+    <input type="text" placeholder="Your email" id="email" required />
+    <input type="text" placeholder="Card number" />
+    <input type="text" placeholder="MM/YY" />
+    <input type="text" placeholder="CVV" />
+    <button onclick="completePurchase()">Pay $12.00</button>
+  </div>
+
+  <script>
+    function openCheckout() {
+      document.getElementById("checkout-popup").style.display = "block";
+      document.getElementById("overlay").style.display = "block";
+    }
+    function closeCheckout() {
+      document.getElementById("checkout-popup").style.display = "none";
+      document.getElementById("overlay").style.display = "none";
+    }
+    function completePurchase() {
+      const email = document.getElementById("email").value;
+      if (email) {
+        alert("Thank you! A download link will be sent to: " + email);
+        closeCheckout();
+      } else {
+        alert("Please enter your email.");
+      }
+    }
+  </script>
+
 </body>
 </html>
