@@ -1,127 +1,175 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ADHD Planner - Digital Download</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADHD Planner - FocusFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
-    header {
-      background: #fff; padding: 20px; display: flex;
-      justify-content: space-between; align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    body { font-family: 'Inter', sans-serif; background: #f5f7fb; color: #222; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; }
+    header { background: #fff; padding: 20px 40px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 26px; font-weight: 700; }
+    nav a { margin-left: 20px; font-weight: 500; }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff;
+      padding: 60px 40px;
+      margin: 40px auto;
+      max-width: 1200px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+      animation: slideUp 1s ease forwards;
     }
-    .logo { font-size: 24px; font-weight: bold; }
-    nav a { margin: 0 10px; text-decoration: none; color: #333; }
 
-    main { padding: 40px 20px; max-width: 1100px; margin: auto; background: #fff; border-radius: 12px; }
+    .hero img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
 
-    .product { display: flex; flex-wrap: wrap; gap: 40px; }
-    .product img { width: 100%; max-width: 450px; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
-
-    .details { flex: 1; }
-    h1 { font-size: 30px; margin-bottom: 16px; }
-    .price { font-size: 24px; color: #e91e63; }
-    .old-price { text-decoration: line-through; color: #999; font-size: 18px; margin-left: 8px; }
-
-    .desc { margin: 20px 0; line-height: 1.6; font-size: 16px; }
-    .btn-buy {
-      background: #000; color: #fff;
-      padding: 14px 28px; border: none;
-      border-radius: 8px; cursor: pointer;
+    .hero-text {
+      flex: 1;
+      padding-left: 40px;
+    }
+    .hero-text h1 {
+      font-size: 38px;
+      margin-bottom: 16px;
+    }
+    .hero-text .price {
+      font-size: 24px;
+      color: #e91e63;
+      margin: 8px 0;
+    }
+    .hero-text .old-price {
+      color: #999;
+      text-decoration: line-through;
+      margin-left: 10px;
+    }
+    .hero-text ul {
+      margin: 20px 0;
+      padding-left: 20px;
+    }
+    .hero-text ul li::marker {
+      content: "✔ ";
+      color: #28a745;
+    }
+    .btn-primary {
+      background: #000;
+      color: #fff;
+      padding: 16px 28px;
+      border: none;
+      border-radius: 8px;
       font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-primary:hover {
+      background: #222;
     }
 
-    .popup {
-      display: none;
-      position: fixed; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: #fff; padding: 30px; border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3); z-index: 999;
-      width: 90%; max-width: 400px;
-    }
-    .popup input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
-    .popup button { width: 100%; background: #28a745; color: #fff; padding: 12px; border: none; border-radius: 6px; cursor: pointer; }
-
-    .overlay {
-      display: none;
-      position: fixed; top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      z-index: 998;
+    .guarantee {
+      font-style: italic;
+      color: #666;
+      font-size: 14px;
+      margin-top: 14px;
     }
 
-    @media(max-width: 768px) {
-      .product { flex-direction: column; }
+    .section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .section h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+    .feature-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: #fff;
+      font-size: 14px;
+      color: #777;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="logo">🧠 FocusFlow</div>
+    <div class="logo">FocusFlow</div>
     <nav>
       <a href="#">Home</a>
-      <a href="#">Shop</a>
+      <a href="#features">Features</a>
       <a href="#">Contact</a>
     </nav>
   </header>
 
-  <main>
-    <div class="product">
-      <img src="https://via.placeholder.com/450x600?text=ADHD+Planner+Cover" alt="ADHD Planner PDF Cover">
+  <section class="hero">
+    <img src="https://via.placeholder.com/480x600?text=ADHD+Planner+Cover" alt="ADHD Planner">
+    <div class="hero-text">
+      <h1>ADHD Daily Planner (Digital)</h1>
+      <div class="price">
+        $12.00 <span class="old-price">$24.99</span>
+      </div>
+      <ul>
+        <li>Printable & tablet-friendly (PDF format)</li>
+        <li>Plan your day with clarity and focus</li>
+        <li>Designed for ADHD & neurodivergent minds</li>
+        <li>Instant download + lifetime access</li>
+      </ul>
+      <button class="btn-primary">Buy Now & Download</button>
+      <p class="guarantee">100% Satisfaction Guarantee · Instant Delivery</p>
+    </div>
+  </section>
 
-      <div class="details">
-        <h1>ADHD Daily Planner (Digital PDF)</h1>
-        <p class="price">$12.00 <span class="old-price">$19.99</span></p>
-        <p class="desc">
-          This printable ADHD Planner helps you stay focused, reduce overwhelm, and structure your day with clarity.
-          It includes:
-          <ul>
-            <li>✔️ Daily focus sheets</li>
-            <li>✔️ Weekly goal planning</li>
-            <li>✔️ Self-care reminders</li>
-            <li>✔️ Minimalist, printable design (PDF)</li>
-          </ul>
-        </p>
-        <button class="btn-buy" onclick="openCheckout()">Buy & Download</button>
+  <section id="features" class="section">
+    <h2>What You'll Get</h2>
+    <div class="features-grid">
+      <div class="feature-box">
+        <h3>🧠 Focus Pages</h3>
+        <p>Daily focus sections with top 3 priorities, tasks, and distractions to avoid.</p>
+      </div>
+      <div class="feature-box">
+        <h3>📅 Weekly Layouts</h3>
+        <p>Organize your full week with flexible time blocks and reminders.</p>
+      </div>
+      <div class="feature-box">
+        <h3>💬 Brain Dump</h3>
+        <p>Clear your thoughts with a dedicated space for spontaneous ideas or stressors.</p>
+      </div>
+      <div class="feature-box">
+        <h3>🌈 Mood Tracker</h3>
+        <p>Track emotions and energy daily for better self-awareness and mental health.</p>
       </div>
     </div>
-  </main>
+  </section>
 
-  <!-- Checkout Popup -->
-  <div class="overlay" id="overlay" onclick="closeCheckout()"></div>
-
-  <div class="popup" id="checkout-popup">
-    <h2>Complete Your Purchase</h2>
-    <input type="text" placeholder="Your email" id="email" required />
-    <input type="text" placeholder="Card number" />
-    <input type="text" placeholder="MM/YY" />
-    <input type="text" placeholder="CVV" />
-    <button onclick="completePurchase()">Pay $12.00</button>
-  </div>
-
-  <script>
-    function openCheckout() {
-      document.getElementById("checkout-popup").style.display = "block";
-      document.getElementById("overlay").style.display = "block";
-    }
-    function closeCheckout() {
-      document.getElementById("checkout-popup").style.display = "none";
-      document.getElementById("overlay").style.display = "none";
-    }
-    function completePurchase() {
-      const email = document.getElementById("email").value;
-      if (email) {
-        alert("Thank you! A download link will be sent to: " + email);
-        closeCheckout();
-      } else {
-        alert("Please enter your email.");
-      }
-    }
-  </script>
-
+  <footer>
+    &copy; 2025 FocusFlow. All rights reserved.
+  </footer>
 </body>
 </html>
